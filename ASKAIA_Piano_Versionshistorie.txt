@@ -1,0 +1,89 @@
+========================================================================
+ ASKAIA Piano — Versionshistorie
+========================================================================
+ Privates Kompositions-Skizzenbuch fuer Digitalpiano, von Toby
+ Projekt:  K:\ASKAIA_Piano      Package: ch.askaia.piano
+ Zielgeraet: Samsung S24 (arm64), Android 16
+ Referenzgeraet: Roland FP-90 (Bluetooth-MIDI)
+
+ Aktueller Stand: v0.5.0  (versionCode 2)  —  25.07.2026
+ Datenbank-Schema: Version 2
+
+ Legende:  [Neu] Funktion   [UX] Bedienung/Design   [Fix] Fehlerbehebung
+           [Build] Build/Technik   (Reihenfolge: neueste Version zuerst)
+========================================================================
+
+
+------------------------------------------------------------------------
+ v0.5.0  —  25.07.2026   (erste veroeffentlichte Fassung)
+------------------------------------------------------------------------
+
+ GRUNDFUNKTIONEN (M1–M5)
+
+ [Neu] Jam: Verbindung zum Roland FP-90 ueber Bluetooth-MIDI. Gespielte
+       Tasten leuchten in Echtzeit auf der Bildschirm-Klaviatur auf,
+       Helligkeit folgt der Anschlagstaerke.
+       Berechtigungen bewusst sparsam: BLUETOOTH_SCAN mit "neverForLocation"
+       und BLUETOOTH_CONNECT — kein Standortzugriff noetig.
+
+ [Neu] Aufnahme: Note-An/Aus mit millisekundengenauem Timing, Anschlag-
+       staerke und Sustain-Pedal (CC64). Aufnahmen benennen, verwalten,
+       loeschen mit Papierkorb und Rueckgaengig.
+
+ [Neu] Wiedergabe als Piano-Roll im Synthesia-Stil: fallende Balken ueber
+       der Klaviatur, Tempo stufenlos 25–125 %, Positionsregler zum
+       Springen, Abschnitts-Loop (A/B) zum Ueben, Vollbild-Modus mit
+       automatisch ausblendender Bedienung.
+
+ [Neu] Klang wahlweise ueber das FP-90 (bestes Ergebnis) oder ueber den
+       eingebauten Klavierklang, wenn kein Piano verbunden ist.
+
+ [Neu] Automatischer Zoom auf die im Stueck gespielten Oktaven — die
+       Tasten werden dadurch gross und lesbar. Umschaltbar auf alle 88.
+
+ [Neu] Tastenbeschriftung wahlweise Notennamen (C, D, E), Solfege
+       (Do, Re, Mi) oder aus.
+
+ [Neu] MIDI-Dateien importieren und wie eine eigene Aufnahme ueben.
+
+ [Neu] Einstellungen: Design (Dunkel/Hell/System), Beschriftung,
+       Piano-Roll-Vorschau, Sicherung als ZIP mit gezielter Wieder-
+       herstellung einzelner Aufnahmen, Update-Suche.
+
+ [Neu] Sicherung: alle Aufnahmen als ZIP exportieren und wieder ein-
+       spielen. Das Wiederherstellen FUEGT HINZU und ueberschreibt nie
+       etwas.
+
+ TON-ERKENNUNG AUS AUDIO (in Entwicklung)
+
+ [Neu] Songs: Audiodateien (MP3, M4A, WAV) auswerten und daraus eine
+       Piano-Roll erzeugen. Erkennung mit "Basic Pitch" (Spotify,
+       Apache-2.0) direkt auf dem Geraet — kein Internet noetig.
+       Die vermutete Hauptmelodie wird farblich hervorgehoben.
+
+ [Neu] Musikalisches Aufraeumen: Tonart bestimmen und tonartfremde
+       Ausreisser entfernen, Takt schaetzen und Toene aufs Raster
+       einrasten. Beides in den Einstellungen abschaltbar.
+       Ist die Schaetzung unsicher, wird bewusst nichts veraendert.
+
+ [Neu] Einsingen: eine einstimmige Melodie summen oder singen; die App
+       macht daraus eine Piano-Roll-Skizze (Mikrofon-Berechtigung).
+
+ [UX]  Bildschirm bleibt waehrend Verbindung und Wiedergabe an.
+
+ EHRLICHER HINWEIS ZUM STAND
+       Die Ton-Erkennung aus Audio ist noch nicht ausgereift. Klavier
+       solo funktioniert am besten; dichte Band-Aufnahmen liefern
+       deutlich fehlerhaftere Ergebnisse. Es ist eine Lernhilfe mit
+       Fehlern, kein exaktes Notenblatt.
+
+ [Build] Signiert mit dem Familien-Keystore (gleiche Signatur wie die
+       uebrigen ASKAIA-Apps) — Play Protect blockiert sonst die
+       Installation, weil Debug-Builds als "unbekannter Herausgeber"
+       gelten.
+ [Build] Release verkleinert die App von 68 MB auf rund 11 MB.
+       ProGuard-Regeln halten TensorFlow Lite davon aus.
+
+ FREIE BESTANDTEILE
+       Basic Pitch (Spotify AB) — Apache-Lizenz 2.0
+       Versilian Community Sample Library — CC0 (gemeinfrei)
