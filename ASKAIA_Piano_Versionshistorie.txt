@@ -6,12 +6,65 @@
  Zielgeraet: Samsung S24 (arm64), Android 16
  Referenzgeraet: Roland FP-90 (Bluetooth-MIDI)
 
- Aktueller Stand: v0.5.0  (versionCode 2)  —  25.07.2026
+ Aktueller Stand: v0.6.0  (versionCode 3)  —  03.09.2026
  Datenbank-Schema: Version 2
 
  Legende:  [Neu] Funktion   [UX] Bedienung/Design   [Fix] Fehlerbehebung
            [Build] Build/Technik   (Reihenfolge: neueste Version zuerst)
 ========================================================================
+
+
+------------------------------------------------------------------------
+ v0.6.0  —  03.09.2026
+------------------------------------------------------------------------
+
+ ZWEI NEUE BILDSCHIRME - AKKORDE UND ARPEGGIOS
+
+ Beide rechnen und raten nicht. Keine Ton-Erkennung, kein Modell, kein
+ Internet, keine Wartezeit - reine Musiktheorie. Was hier steht, stimmt.
+
+ [Neu] Akkorde: 17 Grundtoene mal 26 Akkordtypen. Die beteiligten Tasten
+       leuchten auf und tragen ihre Intervallzahl (1, 3, 5, b7 ...).
+       Darunter die Toene, die Intervalle und andere Schreibweisen.
+
+ [Neu] Umkehrungen - umschaltbar von der Grundstellung bis zur letzten.
+       Sie bleiben dabei in derselben Lage und klettern nicht die
+       Klaviatur hinauf.
+
+ [Neu] Lage waehlbar: tief, mittel, hoch.
+
+ [Neu] Der Abspielknopf schickt den Akkord ans FP-90, wenn es verbunden
+       ist - sonst klingt der eingebaute Fluegel.
+
+ [Neu] Der Weg rueckwaerts: Einen Akkord am FP-90 greifen, und die App
+       sagt, wie er heisst - samt Umkehrung. Das ist reine Rechnung aus
+       den MIDI-Noten, also fehlerfrei.
+
+ [Neu] Arpeggios: 24 Begleitmuster in sechs Gruppen - gebrochene
+       Akkorde, Tanz und Takt, Ballade und Pop, Blues und Boogie,
+       Latin, Modern und Film. Darunter Alberti-Bass, Walzer, Habanera,
+       Boogie-Woogie-Bass, Bossa Nova, Montuno.
+
+ [Neu] Die Ziffern auf den Tasten sind die GREIFREIHENFOLGE, nicht die
+       Intervalle - sie zeigen, in welcher Folge gespielt wird.
+
+ [Neu] Muster laufen im Kreis mit. Tempo 40-160 BPM stufenlos. Akkord
+       oder Muster mittendrin wechseln: die Schleife springt sofort um,
+       ohne anzuhalten.
+
+ [Neu] Groessere Akkorde ersetzen, statt zu verlaengern. Der
+       Alberti-Bass auf C7 bleibt vierteilig und behaelt seinen
+       Rhythmus, klingt aber hoerbar nach Septakkord.
+
+ [UX]  Benennung international: B ist B. Die Tonnamen entstehen aus
+       Buchstabe plus Vorzeichen, nicht aus einer festen Tabelle -
+       deshalb heisst die Septime ueber C korrekt B-be und nicht
+       A-kreuz, und F#maj7 wird zu F# A# C# E#.
+
+ [Build] Erstmals Unit-Tests in dieser App (19 Stueck). Sie fanden vor
+       dem ersten Bau zwei echte Fehler: Luecken in den Ziffern auf den
+       Tasten, und der Walzer-Akkord lag auf derselben Oktave wie der
+       Bass.
 
 
 ------------------------------------------------------------------------
