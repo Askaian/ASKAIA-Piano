@@ -6,12 +6,47 @@
  Zielgeraet: Samsung S24 (arm64), Android 16
  Referenzgeraet: Roland FP-90 (Bluetooth-MIDI)
 
- Aktueller Stand: v0.7.0  (versionCode 5)  —  04.09.2026
+ Aktueller Stand: v0.7.1  (versionCode 6)  —  04.09.2026
  Datenbank-Schema: Version 2
 
  Legende:  [Neu] Funktion   [UX] Bedienung/Design   [Fix] Fehlerbehebung
            [Build] Build/Technik   (Reihenfolge: neueste Version zuerst)
 ========================================================================
+
+
+------------------------------------------------------------------------
+ v0.7.1  —  04.09.2026
+------------------------------------------------------------------------
+
+ [Fix] DIE KLAVIER-ERKENNUNG LIEF UEBERHAUPT NICHT. Sie brach immer mit
+       "Datei konnte nicht ausgewertet werden" ab. Ursache: Beim Verkleinern
+       des Modells war die Faltungsschicht in eine Rechenart verwandelt
+       worden, die es auf Android gar nicht gibt. Auf dem PC lief dieselbe
+       Datei einwandfrei - deshalb fiel es beim Bauen nicht auf.
+       Jetzt wird nur der Teil verkleinert, der sich verkleinern laesst.
+       Ergebnis: 57 von 57 Toenen genau wie in der Referenz.
+
+ [Fix] Schwarze Tasten wechselten beim Anschlag die Farbe nicht - zwischen
+       "gehoert zum Akkord" und "klingt gerade" lag nur ein winziger
+       Helligkeitsunterschied.
+
+ [Fix] Der Fortschrittsbalken sprang bei 25 % auf null zurueck und es sah
+       aus, als beginne die Auswertung von vorn.
+
+ [Fix] Die Update-Suche nennt jetzt den tatsaechlichen Fehler samt
+       HTTP-Status statt nur "nicht erreichbar".
+
+ [Neu] Zwoelf weitere Begleitmuster, darunter die neue Gruppe NEOKLASSIK
+       (gehaltener Bass mit Figur, Sechzehntel-Ostinato, Walzer-Ostinato,
+       weite Oktaven, wiederholter Ton, sanfte Synkope). Dazu drei neue in
+       Ballade/Pop und drei in Modern/Film - zusammen 36 Muster.
+
+ [UX]  Die Mustergruppen sind ausklappbar. Offen ist jeweils die Gruppe,
+       aus der das gerade gewaehlte Muster stammt.
+
+ [Build] Der rechnende Teil der Erkennung steht jetzt getrennt vom
+       Android-Teil und laeuft im Test auf dem PC mit dem ECHTEN Modell.
+       Genau dieser Test hat den Fehler oben gefunden.
 
 
 ------------------------------------------------------------------------
