@@ -6,12 +6,68 @@
  Zielgeraet: Samsung S24 (arm64), Android 16
  Referenzgeraet: Roland FP-90 (Bluetooth-MIDI)
 
- Aktueller Stand: v0.6.0  (versionCode 3)  —  03.09.2026
+ Aktueller Stand: v0.7.0  (versionCode 5)  —  04.09.2026
  Datenbank-Schema: Version 2
 
  Legende:  [Neu] Funktion   [UX] Bedienung/Design   [Fix] Fehlerbehebung
            [Build] Build/Technik   (Reihenfolge: neueste Version zuerst)
 ========================================================================
+
+
+------------------------------------------------------------------------
+ v0.7.0  —  04.09.2026
+------------------------------------------------------------------------
+
+ BESSERER KLANG - DREI SAETZE ZUR WAHL
+
+ [Neu] Der eingebaute Klang laesst sich umschalten (Einstellungen > Klang):
+       Konzertfluegel  Salamander Grand, ein Yamaha C5, drei Anschlagstufen
+       Klavier         Upright Piano KW, ein Kawai, zwei Anschlagstufen
+       Schlicht        der Klang der frueheren Fassungen
+       Mit "Anspielen" hoert man den Unterschied sofort.
+
+ [Neu] Mehrere Anschlagstufen je Ton: Ein leiser Anschlag klingt nicht mehr
+       nur leiser, sondern auch weicher - das war der eigentliche Mangel.
+       Statt 17 Toenen in einer Stufe liegen jetzt 30 Toene in drei Stufen
+       bereit.
+
+ GENAUERE KLAVIER-ERKENNUNG
+
+ [Neu] Songs werden auf Wunsch mit dem hFT-Transformer erkannt statt mit
+       Basic Pitch. Auf Klavieraufnahmen ist der Unterschied gross:
+       97,4 % gegen 70,9 % Note-F1 in der Fachliteratur. An Tobys eigenem
+       Stueck gab Basic Pitch 1333 Toene aus, hFT 953 - und zwei weitere,
+       voneinander unabhaengige Modelle bestaetigten die 953.
+
+ [Neu] Umschaltbar in den Einstellungen unter "Ton-Erkennung":
+       Klavier   genauer, braucht dafuer einige Minuten
+       Allround  das schnellere Verfahren der frueheren Fassungen
+
+ [Build] Das Modell laeuft als ONNX, int8-quantisiert: 5,7 statt 21,1 MB
+       und doppelt so schnell, bei 99,7 % gleichen Noten.
+ [Build] Die Vorverarbeitung wurde am PC gegen die Referenz geprueft -
+       951 von 952 Toenen identisch. Weicht sie ab, liefert das Netz
+       plausibel aussehenden Unsinn.
+
+ KLEINERES
+
+ [Fix] Bereits in v0.6.1: Der Akkord-Bildschirm zeigte immer C-Dur, egal
+       was gewaehlt war. Ursache war, dass der Bildschirm den Zustand an
+       einer Stelle las, an der Compose ihn nicht anmeldet.
+ [Fix] Tastenausschnitt bei den Arpeggios: mindestens gut zwei Oktaven.
+ [UX]  Akkordauswahl kompakter: acht haeufige als Chips, die 18 selteneren
+       in einer Klappliste.
+ [UX]  Update-Suche antwortet mit einem Dialog statt einer Schnellmeldung -
+       "Bereits aktuell" war praktisch unsichtbar.
+ [UX]  Familien-Standard: Einstellungen enden mit Deine Daten / Updates /
+       Ueber, Papierkorb dort erreichbar; groesseres Logo im Menuekopf.
+
+ Die App waechst dadurch von 11,5 auf 66 MB.
+
+ FREIE BESTANDTEILE, NEU
+       Salamander Grand Piano - Alexander Holm, CC BY 3.0
+       Upright Piano KW - FreePats, CC0 (gemeinfrei)
+       hFT-Transformer - Sony, MIT-Lizenz
 
 
 ------------------------------------------------------------------------

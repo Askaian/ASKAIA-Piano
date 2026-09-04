@@ -43,5 +43,8 @@ Die vollständige Versionshistorie steht in
 - Hier werden **ausschließlich die fertigen App-Dateien (APK)** bereitgestellt — der Quellcode ist nicht öffentlich.
 
 ## 📄 Verwendete freie Bestandteile
-- **Basic Pitch** (Ton-Erkennung) — Spotify AB, Apache-Lizenz 2.0
-- **Versilian Community Sample Library (VCSL)** (Klaviertöne) — Versilian Studios LLC, CC0 (gemeinfrei)
+- **hFT-Transformer** (Klavier-Erkennung) — Sony, MIT-Lizenz
+- **Basic Pitch** (Ton-Erkennung, Allround) — Spotify AB, Apache-Lizenz 2.0
+- **Salamander Grand Piano** (Konzertflügel) — Alexander Holm, CC BY 3.0
+- **Upright Piano KW** (Klavier) — FreePats, CC0 (gemeinfrei)
+- **Versilian Community Sample Library (VCSL)** (Klang „Schlicht") — Versilian Studios LLC, CC0
