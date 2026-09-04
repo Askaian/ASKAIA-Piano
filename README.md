@@ -28,7 +28,7 @@ Neue Versionen lassen sich direkt **über die bestehende App** installieren — 
 - **Aufnehmen** — Spiel mit exaktem Timing, Anschlagstärke und Sustain-Pedal festhalten
 - **Piano-Roll** — fallende Balken im Synthesia-Stil, Tempo stufenlos regelbar zum Nachüben, Abschnitts-Loop
 - **Klang** — über das FP-90 oder über den eingebauten Klavierklang, auch ohne angeschlossenes Piano
-- **Songs** — Audiodateien auswerten und daraus eine Piano-Roll erzeugen (in Entwicklung)
+- **Songs** — Audiodateien auswerten: **Akkorde, Tonart und passende Tasten**, oder jede einzelne Note als Piano-Roll
 - **Einsingen** — eine Melodie summen oder singen und als Skizze festhalten (in Entwicklung)
 - **MIDI-Import**, Papierkorb, Sicherung als ZIP
 
@@ -44,6 +44,7 @@ Die vollständige Versionshistorie steht in
 
 ## 📄 Verwendete freie Bestandteile
 - **hFT-Transformer** (Klavier-Erkennung) — Sony, MIT-Lizenz
+- **BTC** (Akkorderkennung) — Jonggwon Park u. a., MIT-Lizenz
 - **Basic Pitch** (Ton-Erkennung, Allround) — Spotify AB, Apache-Lizenz 2.0
 - **Salamander Grand Piano** (Konzertflügel) — Alexander Holm, CC BY 3.0
 - **Upright Piano KW** (Klavier) — FreePats, CC0 (gemeinfrei)

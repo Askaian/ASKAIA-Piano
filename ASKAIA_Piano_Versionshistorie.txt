@@ -6,12 +6,55 @@
  Zielgeraet: Samsung S24 (arm64), Android 16
  Referenzgeraet: Roland FP-90 (Bluetooth-MIDI)
 
- Aktueller Stand: v0.7.3  (versionCode 8)  —  05.09.2026
+ Aktueller Stand: v0.8.0  (versionCode 9)  —  05.09.2026
  Datenbank-Schema: Version 2
 
  Legende:  [Neu] Funktion   [UX] Bedienung/Design   [Fix] Fehlerbehebung
            [Build] Build/Technik   (Reihenfolge: neueste Version zuerst)
 ========================================================================
+
+
+------------------------------------------------------------------------
+ v0.8.0  —  05.09.2026
+------------------------------------------------------------------------
+
+ SONGANALYSE: AKKORDE, TONART UND DIE PASSENDEN TASTEN
+
+ [Neu] Aus einer Audiodatei werden jetzt die Akkorde erkannt — und daraus
+       die Tonart und die Tonleiter. Das ist der Weg, der bei Band-
+       aufnahmen wirklich weiterhilft: nicht jede einzelne Note, sondern
+       welche Akkorde vorkommen und welche Tasten zum ganzen Lied passen.
+       Dauert Sekunden statt Minuten.
+
+ [Neu] Beim Auswerten fragt die App, was sie aus dem Lied holen soll:
+         Akkorde und Tonart   schnell, fuer Bandaufnahmen
+         Noten - Klavier      genau, dauert einige Minuten
+         Noten - Allround     schneller und ungenauer
+       Die Wahl faellt je Lied, nicht ein fuer alle Mal in den
+       Einstellungen.
+
+ [Neu] Der neue Bildschirm zeigt Tonart, die Tonleiter auf der Klaviatur,
+       die haeufigsten Akkorde mit ihrem Anteil und den Verlauf. Ein Tippen
+       auf einen Akkord oeffnet ihn mit Tasten und Umkehrungen.
+
+ [Neu] Statt "Tonart unsicher" nennt die App die parallele Tonart —
+       A-Dur und F#-Moll haben dieselben Tasten, da ist eine Entscheidung
+       zwischen beiden weder moeglich noch noetig.
+
+ EHRLICHER HINWEIS
+       Die Akkorde sind aus dem Klang GESCHAETZT und koennen danebenliegen.
+       Die Tonleiter darunter ist aus der Tonart GERECHNET — stimmt die
+       Tonart, stimmen auch die Tasten. Beides ist im Bildschirm getrennt
+       benannt.
+
+ [Build] Das Erkennungsmodell (BTC, ISMIR 2019, MIT-Lizenz) hat nur 3
+       Millionen Parameter und laeuft sehr schnell. Die Vorverarbeitung
+       wurde gegen die Referenz geprueft und stimmt auf sieben Stellen;
+       das Ergebnis der ganzen Kette stimmt zu 97,8 % mit der Vorlage
+       ueberein.
+
+ FREIE BESTANDTEILE, NEU
+       BTC - Jonggwon Park u. a., MIT-Lizenz
 
 
 ------------------------------------------------------------------------
