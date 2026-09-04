@@ -6,12 +6,34 @@
  Zielgeraet: Samsung S24 (arm64), Android 16
  Referenzgeraet: Roland FP-90 (Bluetooth-MIDI)
 
- Aktueller Stand: v0.7.1  (versionCode 6)  —  04.09.2026
+ Aktueller Stand: v0.7.2  (versionCode 7)  —  05.09.2026
  Datenbank-Schema: Version 2
 
  Legende:  [Neu] Funktion   [UX] Bedienung/Design   [Fix] Fehlerbehebung
            [Build] Build/Technik   (Reihenfolge: neueste Version zuerst)
 ========================================================================
+
+
+------------------------------------------------------------------------
+ v0.7.2  —  05.09.2026
+------------------------------------------------------------------------
+
+ [Fix] DIE SONGANALYSE BRAUCHTE UEBER EIN GIGABYTE SPEICHER und brach
+       deshalb auf dem Telefon ab. Im Emulator nachgemessen: 1'067'816 KB.
+       Die Erkennungsbibliothek legt einen Speichervorrat an, der die
+       groesste je gebrauchte Zwischengroesse behaelt und nie zurueckgibt.
+       Jetzt wird der Vorrat nicht mehr angelegt: 96 bis 390 MB statt 1068,
+       bei unveraendertem Ergebnis.
+       Geprueft mit MP3 und mit M4A (AAC, 48 kHz, wie NewPipe es liefert) —
+       am Dateiformat lag es nicht.
+
+ [Fix] Die Update-Suche geht jetzt zwei Wege. Zuerst wie bisher ueber die
+       GitHub-Schnittstelle; antwortet die nicht, ueber die Release-Liste
+       auf github.com — also ueber denselben Rechner wie der Download-Link,
+       der nachweislich funktioniert.
+
+ [Fix] Schlaegt eine Auswertung fehl, steht jetzt da, WORAN sie gescheitert
+       ist, statt nur "konnte nicht ausgewertet werden".
 
 
 ------------------------------------------------------------------------
