@@ -6,12 +6,27 @@
  Zielgeraet: Samsung S24 (arm64), Android 16
  Referenzgeraet: Roland FP-90 (Bluetooth-MIDI)
 
- Aktueller Stand: v0.7.2  (versionCode 7)  —  05.09.2026
+ Aktueller Stand: v0.7.3  (versionCode 8)  —  05.09.2026
  Datenbank-Schema: Version 2
 
  Legende:  [Neu] Funktion   [UX] Bedienung/Design   [Fix] Fehlerbehebung
            [Build] Build/Technik   (Reihenfolge: neueste Version zuerst)
 ========================================================================
+
+
+------------------------------------------------------------------------
+ v0.7.3  —  05.09.2026
+------------------------------------------------------------------------
+
+ [Fix] DIE KLAVIER-ERKENNUNG SCHLUG NACH EINEM UPDATE WEITER FEHL, obwohl
+       der Fehler in v0.7.1 behoben war. Grund: Die App entpackt das
+       Erkennungsmodell beim ersten Start in ihren Datenordner — und tat das
+       nur, wenn dort noch nichts lag. Wer v0.7.0 installiert hatte, behielt
+       damit fuer immer das fehlerhafte Modell, auch wenn im Programm laengst
+       ein repariertes mitgeliefert wurde.
+       Bei einer Neuinstallation trat das nie auf. Deshalb war es weder auf
+       dem PC noch im Testgeraet zu sehen — nur beim Update.
+       Jetzt holt sich jede Fassung ihr eigenes Modell, alte werden entfernt.
 
 
 ------------------------------------------------------------------------
