@@ -6,12 +6,79 @@
  Zielgeraet: Samsung S24 (arm64), Android 16
  Referenzgeraet: Roland FP-90 (Bluetooth-MIDI)
 
- Aktueller Stand: v0.8.0  (versionCode 9)  —  05.09.2026
- Datenbank-Schema: Version 2
+ Aktueller Stand: v0.9.0  (versionCode 10)  —  06.09.2026
+ Datenbank-Schema: Version 3
 
  Legende:  [Neu] Funktion   [UX] Bedienung/Design   [Fix] Fehlerbehebung
            [Build] Build/Technik   (Reihenfolge: neueste Version zuerst)
 ========================================================================
+
+
+------------------------------------------------------------------------
+ v0.9.0  —  06.09.2026
+------------------------------------------------------------------------
+
+ AKKORDBLATT MIT ABSCHNITTEN UND MITSPIELEN
+
+ [Neu] Aus "Verlauf" wird das AKKORDBLATT. Ein Tipp auf einen Akkord
+       klappt die Tasten an Ort und Stelle aus — man sieht den Griff,
+       ohne den Faden zu verlieren. Darunter stehen die Toene, daneben
+       fuehrt ein Knopf zu den Umkehrungen.
+
+ [Neu] Das Lied wird in TEILE gegliedert, jeder mit Zeitangabe:
+       "Teil A  0:00-0:55". Wo derselbe Buchstabe wieder steht, kehrt
+       dasselbe Akkordmuster zurueck.
+       Bewusst Buchstaben und keine Namen: Aus den Akkorden laesst sich
+       ablesen, DASS sich etwas wiederholt — nicht, ob es Strophe,
+       Refrain oder Bridge heisst. Findet die App keine klare
+       Wiederholung, sagt sie das, statt eine Gliederung zu erfinden.
+
+ [Neu] MITSPIELEN: Der Pfeil oben spielt die Originaldatei ab, das
+       Akkordblatt laeuft mit, und die gerade klingende Zeile rueckt von
+       selbst ins Bild. Ein Tipp auf eine Zeit springt dorthin.
+       ⚠️ Gespeichert wird die ADRESSE der Datei, keine Kopie — sonst
+       waere die Sicherung nach ein paar Liedern riesig. Verschiebt oder
+       loescht man die Datei, sagt die App das deutlich. Aeltere Songs
+       aus v0.8.0 kennen ihre Datei nicht und lassen sich nicht
+       mitspielen; einmal neu auswerten genuegt.
+
+ DRITTER KLANGSATZ
+
+ [Neu] "Disklavier" — Yamaha Disklavier Pro (Zenph Studios / FreePats),
+       hell und direkt, drei Anschlagstufen. Damit gibt es vier Klaenge
+       zur Auswahl. Die App waechst dadurch um rund 18 MB.
+
+ WENN ETWAS NICHT KLAPPT
+
+ [Neu] Einstellungen > FEHLERSUCHE: Die App schreibt mit, was bei der
+       Verbindung zum Klavier und bei Aufnahmen passiert. Das Protokoll
+       laesst sich ansehen, weitergeben und leeren. Anlass war eine
+       Aufnahme, die eine leere Skizze ergab und bei der sich hinterher
+       nicht mehr feststellen liess, woran es lag.
+
+ [Fix] Eine Aufnahme, bei der KEIN EINZIGER TON ankam, wird nicht mehr
+       gespeichert. Stattdessen sagt die App es und verweist auf die
+       Fehlersuche. Bis v0.8.0 landete stillschweigend eine leere Skizze
+       in der Liste.
+
+ [Fix] Beim Pausieren der Piano-Roll bleiben die klingenden Tasten
+       markiert. Bis v0.8.0 wurden sie geloescht — genau dann, wenn man
+       in Ruhe hinsehen wollte.
+
+ [Build] Datenbank-Schema 2 -> 3: eine neue Spalte fuer die Adresse der
+       Originaldatei. Bestehende Aufnahmen und Songs bleiben unveraendert;
+       der Weg wurde im Emulator von v0.8.0 aus geprueft.
+
+ [Build] Die Gliederung rechnet auf der Folge der AKKORDWECHSEL, nicht
+       auf der Zeitachse. Die erste Fassung legte ein Sekundenraster
+       ueber das Lied und fand an echter Musik nichts — niemand spielt
+       im Sekundenraster. Auf der Akkordfolge spielt das Tempo keine
+       Rolle. Sechs Tests, einer davon mit den echten Akkorden aus
+       Band_1.
+
+ FREIE BESTANDTEILE, NEU
+       YDP Grand Piano (Klang "Disklavier") - Zenph Studios / FreePats,
+       CC BY 3.0
 
 
 ------------------------------------------------------------------------
