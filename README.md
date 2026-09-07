@@ -29,7 +29,7 @@ Neue Versionen lassen sich direkt **über die bestehende App** installieren — 
 - **Piano-Roll** — fallende Balken im Synthesia-Stil, Tempo stufenlos regelbar zum Nachüben, Abschnitts-Loop
 - **Klang** — über das FP-90 oder über den eingebauten Klavierklang (vier Klangsätze), auch ohne angeschlossenes Piano
 - **Songs** — Audiodateien auswerten: **Akkorde, Tonart und passende Tasten**, oder jede einzelne Note als Piano-Roll
-- **Akkordblatt** — Takte statt Sekunden, Teile mit Zeitangaben; ein Tipp auf einen Akkord klappt die Tasten aus, und das Original lässt sich dazu abspielen
+- **Akkordblatt** — Takte statt Sekunden, Teile selbst setzen und benennen, falsch erkannte Akkorde berichtigen; ein Tipp auf einen Akkord klappt die Tasten aus, und das Original lässt sich dazu abspielen — die Anzeige läuft mit
 - **Song kreieren** — aus Akkordfolgen, Begleitmustern und einer eingespielten Melodie ein eigenes Stück bauen; als Aufnahme ablegen oder als MIDI-Datei sichern
 - **Noten bearbeiten** — einzelne Töne einer Skizze verschieben, verlängern oder löschen
 - **Einsingen** — eine Melodie summen oder singen und als Skizze festhalten (in Entwicklung)

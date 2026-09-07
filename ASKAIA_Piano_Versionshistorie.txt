@@ -6,12 +6,89 @@
  Zielgeraet: Samsung S24 (arm64), Android 16
  Referenzgeraet: Roland FP-90 (Bluetooth-MIDI)
 
- Aktueller Stand: v0.10.0  (versionCode 11)  —  07.09.2026
- Datenbank-Schema: Version 5
+ Aktueller Stand: v0.11.0  (versionCode 12)  —  07.09.2026
+ Datenbank-Schema: Version 6
 
  Legende:  [Neu] Funktion   [UX] Bedienung/Design   [Fix] Fehlerbehebung
            [Build] Build/Technik   (Reihenfolge: neueste Version zuerst)
 ========================================================================
+
+
+------------------------------------------------------------------------
+ v0.11.0  —  07.09.2026
+------------------------------------------------------------------------
+
+ DIE SICHERUNG WAR UNVOLLSTAENDIG — DAS IST DER WICHTIGSTE PUNKT
+
+ [Fix] Bis v0.10.0 enthielt eine Sicherung NUR die Aufnahmen und ihre
+       MIDI-Ereignisse. Ein auf Akkorde ausgewerteter Song hat aber gar
+       keine MIDI-Ereignisse — er waere nach dem Wiederherstellen als
+       leerer Eintrag zurueckgekommen. Ebenso fehlten die erkannten
+       Schlaege und saemtliche Songentwuerfe.
+       Seit dieser Fassung ist alles dabei: Akkorde, Schlaege, selbst
+       gesetzte Teile, die Analyseart und die Songentwuerfe mit ihren
+       Teilen und Melodien. Alte Sicherungen lassen sich weiterhin lesen.
+       Im Emulator durchgespielt: sichern, App-Daten loeschen,
+       wiederherstellen — Akkorde und Takte sind wieder da.
+
+ DAS AKKORDBLATT WIRD ZUR WERKSTATT
+
+ [Neu] TEILE SELBST SETZEN UND BENENNEN. Beim Abspielen erscheint
+       "Teil beginnt hier" — antippen, wo der Refrain anfaengt, und den
+       Namen waehlen (Intro, Strophe, Refrain, Bridge, Solo,
+       Zwischenspiel, Outro oder ein eigener). Langes Druecken auf einen
+       Teilnamen aendert oder entfernt ihn.
+       Die erkannte Einteilung bleibt der Vorschlag; sobald ein Teil von
+       Hand gesetzt ist, gilt die eigene. Ein Knopf holt die erkannte
+       zurueck.
+
+ [Neu] AKKORDE BEARBEITEN. Langes Druecken auf einen Takt oeffnet:
+       anderer Akkord, als Pause markieren, loeschen, um eine Viertel-
+       sekunde nach vorn oder hinten schieben.
+       Kommt derselbe Akkord im Lied oefter vor, fragt die App einmal
+       nach: "Am steht noch an 24 weiteren Stellen — sollen die auch?"
+       So ist ein durchgehender Erkennungsfehler mit einem Griff
+       berichtigt, ohne dass ungewollt etwas mitwandert.
+
+ ⚠️ WARUM DAS NOETIG IST: Die Akkorderkennung findet PAUSEN so gut wie
+       nie. An beiden Bandliedern gemessen meldet sie in gut vier Minuten
+       ganze zwei bis drei — und die liegen nach dem Songende. Wo im Lied
+       nichts klingt, raet sie einen Akkord. Das laesst sich nicht
+       wegrechnen, nur berichtigen.
+
+ [Fix] MITLAUFEN BEIM ABSPIELEN. Der laufende Takt rueckt jetzt in die
+       Bildschirmmitte. Bis v0.10.0 gab es das nur in der Zeitliste —
+       sobald ein Lied Takte hatte, lief nichts mit, also genau bei den
+       Liedern, um die es geht.
+
+ SONGS BESSER SORTIERT
+
+ [Neu] Die Songliste ist nach Analyseart gruppiert: "Akkorde und Tonart"
+       und "Noten", beide ein- und ausklappbar.
+
+ [Fix] Bei einer Akkordanalyse stand im Untertitel "130 Toene" — gezaehlt
+       waren aber AKKORDE. Jetzt steht dort, was es ist. Auch fuer alle
+       Songs, die vor dieser Fassung entstanden sind: die Analyseart wird
+       beim Update nachgetragen.
+
+ KLEINIGKEITEN, DIE IM WEG STANDEN
+
+ [Neu] Der BILDSCHIRM BLEIBT AN, solange die App offen ist — nicht mehr
+       nur beim Abspielen. Beim Ueben liegt das Handy auf dem Notenpult
+       und wird nicht angefasst. In den Einstellungen abschaltbar.
+
+ [UX] Im QUERFORMAT laesst sich das Seitenmenue nicht mehr aufziehen.
+       Beim Melodiespielen mit dem Finger kam es sonst staendig
+       versehentlich heraus. Ueber das Hamburger-Symbol geht es weiter
+       auf.
+
+ [UX] Die Tasten der gewaehlten TONLEITER sind beim Melodie-Einspielen
+       jetzt sichtbar eingefaerbt. Es gab die Faerbung schon, aber mit
+       16 % Deckung — auf dem Geraet war davon nichts zu sehen.
+
+ [Build] Datenbank-Schema 5 -> 6: die Analyseart und selbst gesetzte
+       Teile. Bestehende Daten bleiben unveraendert; die Analyseart wird
+       aus den vorhandenen Akkorden bzw. Noten erschlossen.
 
 
 ------------------------------------------------------------------------
