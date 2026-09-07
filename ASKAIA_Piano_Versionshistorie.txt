@@ -6,12 +6,95 @@
  Zielgeraet: Samsung S24 (arm64), Android 16
  Referenzgeraet: Roland FP-90 (Bluetooth-MIDI)
 
- Aktueller Stand: v0.9.0  (versionCode 10)  —  06.09.2026
- Datenbank-Schema: Version 3
+ Aktueller Stand: v0.10.0  (versionCode 11)  —  07.09.2026
+ Datenbank-Schema: Version 5
 
  Legende:  [Neu] Funktion   [UX] Bedienung/Design   [Fix] Fehlerbehebung
            [Build] Build/Technik   (Reihenfolge: neueste Version zuerst)
 ========================================================================
+
+
+------------------------------------------------------------------------
+ v0.10.0  —  07.09.2026
+------------------------------------------------------------------------
+
+ SONG KREIEREN
+
+ [Neu] Ein eigener Bildschirm zum Songschreiben. Der Weg entspricht dem,
+       wie man am Klavier anfaengt: Tonart und Tempo, dann eine
+       Akkordfolge, dann eine Begleitfigur — und wenn das traegt, spielt
+       man eine Melodie darueber.
+
+ [Neu] AKKORDFOLGEN: vierzehn gebraeuchliche Muster (Vier Akkorde,
+       Doo-Wop, Kanon, zwoelftaktiger Blues, Andalusisch und weitere),
+       jeweils sofort in der gewaehlten Tonart angezeigt. Eigene Folgen
+       lassen sich Stufe fuer Stufe zusammenstellen.
+
+ [Neu] VORSCHLAEGE: "Nach F kommt in alten Liedern oft: C 36 %, G7 10 %,
+       Fm 8 %". Gezaehlt an 476 gemeinfreien Leadsheets (OpenEWLD,
+       MIT-Lizenz) — eine Statistik ueber Stufen, kein uebernommenes Werk.
+       Ein Angebot, keine Regel.
+
+ [Neu] BEGLEITUNG: jedes der 36 Arpeggio-Muster laesst sich einem Teil
+       zuordnen, dazu Lage und Anzahl Wiederholungen. Ein Lied kann aus
+       mehreren Teilen bestehen; jeder Teil ist einzeln anhoerbar.
+
+ [Neu] MELODIE EINSPIELEN: Die Begleitung laeuft, und man spielt dazu —
+       am FP-90 oder auf der Klaviatur im Bildschirm. Die Tasten nehmen
+       mehrere Finger gleichzeitig an, halten den Ton, solange der Finger
+       liegt, und schalten beim Gleiten um.
+       ⚠️ Fuers Spielen mit dem Finger: Handy QUER drehen. Dann faellt
+       alles ausser der Klaviatur weg, und die Tasten sind viermal so
+       breit — im Hochformat trifft man sie sonst nicht.
+
+ [Neu] Ein fertiges Lied laesst sich auf drei Arten mitnehmen:
+         - als Entwurf speichern und spaeter weiterbauen
+         - als Aufnahme ablegen (dann stehen ihm Piano-Roll, langsames
+           Nachueben und "Noten bearbeiten" offen)
+         - als MIDI-Datei sichern, fuer jedes Notenprogramm
+
+ NOTEN BEARBEITEN
+
+ [Neu] In der Wiedergabe gibt es einen Bearbeiten-Modus (Stift). Ein Tipp
+       auf einen Balken waehlt den Ton aus und spielt ihn an; dann laesst
+       er sich um einen Halbton verschieben, um 50 ms ruecken,
+       verlaengern, kuerzen oder loeschen. Rueckgaengig fuer die letzten
+       40 Schritte. Geaendert wird erst im Speicher — "Speichern"
+       schreibt es fest, "Verwerfen" holt den alten Stand zurueck.
+
+ TAKTE IM AKKORDBLATT
+
+ [Neu] Das Akkordblatt zeigt jetzt TAKTE statt blosser Sekunden: vier
+       Kaestchen je Reihe, wie auf einem Akkordblatt aus Papier
+       ("1:57 | Am | F | C | Dm"). Darueber steht die Taktart und das
+       Tempo. Ein Tipp auf ein Kaestchen klappt die Tasten darunter auf.
+
+ [Neu] Erkannt mit "Beat This!" (CPJKU, ISMIR 2024, MIT-Lizenz), der
+       kleinen Fassung mit 2,1 Millionen Parametern.
+       ⚠️ Wo sich die Takte nicht sicher bestimmen lassen, sagt die App
+       das und bleibt bei Zeitangaben. Bei einem Live-Mitschnitt mit
+       wanderndem Tempo ist das der ehrliche Befund — eine falsche
+       Takteinteilung waere schlimmer als gar keine.
+
+ [Build] Beide Erkennungen laufen jetzt in einem Durchgang: Akkorde und
+       Schlaege aus derselben entpackten Tonspur. Ein Lied von knapp
+       fuenf Minuten braucht dafuer rund eine halbe Minute.
+
+ [Build] Datenbank-Schema 3 -> 5: die erkannten Schlaege und die
+       Songentwuerfe kommen dazu. Bestehende Aufnahmen und Songs bleiben
+       unveraendert; aeltere Songs haben keine Schlaege und bekommen
+       deshalb keine Takte — einmal neu auswerten genuegt.
+
+ [Build] 85 Tests. Neu darunter: das Mel-Spektrum der Schlagerkennung
+       gegen torchaudio (stimmt auf sieben Stellen), das Taktgitter an
+       den echten Schlaegen und Akkorden beider Bandlieder, der Rundweg
+       Balken -> MIDI-Datei -> Balken, und die Stufen-Umrechnung in allen
+       zwoelf Tonarten.
+
+ FREIE BESTANDTEILE, NEU
+       Beat This! (Takterkennung) - CPJKU, MIT-Lizenz
+       ktmidi (MIDI-Dateien schreiben) - dev.atsushieno, MIT-Lizenz
+       OpenEWLD (Akkord-Statistik) - 00sapo, MIT-Lizenz
 
 
 ------------------------------------------------------------------------
