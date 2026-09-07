@@ -6,12 +6,78 @@
  Zielgeraet: Samsung S24 (arm64), Android 16
  Referenzgeraet: Roland FP-90 (Bluetooth-MIDI)
 
- Aktueller Stand: v0.11.0  (versionCode 12)  —  07.09.2026
+ Aktueller Stand: v0.12.0  (versionCode 13)  —  07.09.2026
  Datenbank-Schema: Version 6
 
  Legende:  [Neu] Funktion   [UX] Bedienung/Design   [Fix] Fehlerbehebung
            [Build] Build/Technik   (Reihenfolge: neueste Version zuerst)
 ========================================================================
+
+
+------------------------------------------------------------------------
+ v0.12.0  —  07.09.2026
+------------------------------------------------------------------------
+
+ NOTEN-EDITOR IM QUERFORMAT
+
+ [Neu] Im Bearbeiten-Modus (Stift) wird aus der Piano-Roll beim Drehen ins
+       Querformat ein richtiger Editor: Die Zeit laeuft WAAGERECHT wie in
+       einem Musikprogramm, die Tasten stehen links. So sieht man acht
+       Sekunden auf einmal statt einer.
+
+       Bedienung ohne Knoepfe:
+         - Ton antippen: auswaehlen und anhoeren
+         - Ton ziehen: verschieben, Tonhoehe und Zeit zugleich
+         - an den Enden ziehen: laenger oder kuerzer
+         - leere Flaeche ziehen: Ausschnitt schwenken
+         - zwei Finger: vergroessern, waagerecht und senkrecht getrennt
+         - lange druecken auf leere Flaeche: neuen Ton anlegen
+
+       Das Hochformat bleibt unveraendert zum Nachueben — das Drehen ist
+       der Umschalter, es braucht keinen Knopf dafuer.
+
+ [Neu] RASTER aus den erkannten Schlaegen, Taktanfaenge dicker. Beim
+       Verschieben rastet ein Ton darauf ein, wenn er nah genug liegt —
+       aber nur dann. Sonst zoege das Raster Toene quer durch den Takt,
+       die schon richtig sassen.
+
+ [Neu] Die Notenerkennung nimmt jetzt auch die SCHLAEGE mit. Bisher gab es
+       die nur bei der Akkorderkennung; ohne sie hat der Editor kein
+       Raster. Aeltere Songs haben keine — einmal neu auswerten genuegt.
+       Eigene Aufnahmen vom FP-90 haben weiterhin keins.
+
+ [UX] Der Ausschnitt wird beim Oeffnen auf die Toene im sichtbaren
+       Zeitfenster eingepasst, nicht auf das ganze Stueck.
+       ⚠️ Zuerst war es umgekehrt — bei einem Stueck ueber vier Oktaven
+       war eine Taste dann neun Bildpunkte hoch, und mit dem Finger traf
+       man nichts.
+
+ SONG KREIEREN, AUFGERAEUMT
+
+ [Neu] Die Akkorde stehen als RASTER, so viele je Zeile wie Schlaege im
+       Takt — bei 4/4 also vier, wie auf einem Akkordblatt aus Papier.
+
+ [Neu] Antippen waehlt einen Akkord aus und spielt ihn an. Dann laesst er
+       sich mit ◀ und ▶ verschieben, loeschen oder durch einen anderen
+       ersetzen; Vorschlaege fuegen dahinter ein statt hinten anzuhaengen.
+       Ganze Teile lassen sich genauso verschieben.
+       Bewusst Auswaehlen und Schieben statt Ziehen: Die Kaestchen sind
+       einen Finger breit, und ein Zug quer ueber ein Raster trifft mit
+       dem Daumen selten das Richtige.
+
+ [Neu] Alle vier Abschnitte lassen sich ZUKLAPPEN. Zugeklappt steht das
+       Wichtigste in der Kopfzeile — "C-Dur · 96 BPM · 4/4", "3 Teile ·
+       24 Takte" —, sodass man nicht aufklappen muss, um nachzusehen.
+
+ [Neu] EINZAEHLER vor der Melodieaufnahme: ein Takt Klick, die Eins
+       hoeher und lauter, mit Zaehlanzeige auf dem Bildschirm. Ohne ihn
+       weiss man nicht, wann man einsetzen soll, und der erste Ton kommt
+       jedes Mal zu spaet.
+
+ [Build] 97 Tests. Neu darunter die Rechnung des Editors — Zoom und
+       Einpassen. ⚠️ Die muss geprueft werden, weil sie sich am Geraet
+       NICHT pruefen laesst: Eine Zwei-Finger-Geste kann `adb` nicht
+       ausloesen.
 
 
 ------------------------------------------------------------------------
