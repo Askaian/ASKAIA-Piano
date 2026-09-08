@@ -6,13 +6,138 @@
  Zielgeraet: Samsung S24 (arm64), Android 16
  Referenzgeraet: Roland FP-90 (Bluetooth-MIDI)
 
- Aktueller Stand: v0.12.0  (versionCode 13)  —  07.09.2026
+ Aktueller Stand: v0.13.0  (versionCode 14)  —  08.09.2026
  Datenbank-Schema: Version 6
 
  Legende:  [Neu] Funktion   [UX] Bedienung/Design   [Fix] Fehlerbehebung
            [Build] Build/Technik   (Reihenfolge: neueste Version zuerst)
 ========================================================================
 
+
+------------------------------------------------------------------------
+ v0.13.0  —  08.09.2026
+------------------------------------------------------------------------
+
+ NOTEN BEARBEITEN: JETZT WIRKLICH BEDIENBAR
+
+ [Fix] Ein Ton flog davon, sobald man ihn anfasste. Der Abstand zwischen
+       Finger und Tonanfang wurde bei JEDEM Fingerereignis neu aus der
+       schon verschobenen Position gerechnet — eine Rueckkopplung: Der Ton
+       rutschte unter den Finger, der Abstand schrumpfte, der Ton rutschte
+       weiter. Jetzt wird beim Aufsetzen einmal gemerkt, wo am Ton man ihn
+       gefasst hat, und danach nur noch angewendet.
+       Nachgemessen im Emulator: 400 Bildpunkte Fingerweg = 400 Bildpunkte
+       Ton, hin wie zurueck. Vorher lief er davon.
+
+ [Fix] Auch die ENDEN sprangen: Sie rasteten beim ersten Ziehen sofort
+       unter den Finger, statt dort weiterzumachen, wo man angefasst hat.
+
+ [Fix] Die Trefferflaeche lag eine HALBE TASTE ueber dem gezeichneten Ton.
+       Man tippte mitten auf einen Balken und traf die Taste darueber.
+       Ursache: gerundet statt abgerundet — der Balken wird von seiner
+       Oberkante nach unten gezeichnet, die Treffersuche rechnete aber um
+       die Mitte herum.
+
+ [UX] Aus einem Tipp wird erst ab 24 statt 12 Bildpunkten ein Ziehen. Mit
+       zwoelf reichte schon das Zittern beim Antippen, und ein Ton
+       verschob sich, den man nur ansehen wollte.
+
+ [UX] Der Zwei-Finger-Zoom hat eine Totzone: Wer waagerecht zoomt, aendert
+       nicht mehr nebenbei die Tonhoehe. Zwei Finger liegen nie genau
+       waagerecht.
+
+ [UX] Die Griffe an den Tonenden sind bei kurzen Toenen schmaler. Vorher
+       war bei einem kurzen Ton alles Rand, und man konnte ihn ueberhaupt
+       nicht mehr verschieben.
+
+ AKKORDBLATT: TEILE UND BEARBEITEN
+
+ [Fix] RUECKGAENGIG — der Pfeil oben rechts. Er nimmt jeden Handgriff
+       zurueck: Akkord aendern, loeschen, verschieben, Teil setzen oder
+       entfernen. Bis zu vierzig Schritte weit.
+       Ohne ihn war das Bearbeiten eine Falle: ein falscher Griff, und man
+       musste das Lied neu einlesen.
+
+ [Fix] Der erste selbst gesetzte Teilanfang LOESCHTE alles davor aus dem
+       Blatt. Wer beim Abspielen bei 2:24 "Refrain" setzte, verlor die
+       ersten zweieinhalb Minuten. Jetzt steht das Stueck vor der ersten
+       Marke einfach ohne Ueberschrift da.
+
+ [Fix] Die DOPPELTEN AKKORDE beim Setzen eines Teilanfangs. Ein Takt, der
+       ueber die Teilgrenze lief, gehoerte zu beiden Teilen und stand
+       zweimal im Blatt. Zwei Aenderungen: Ein Teilanfang rastet auf den
+       naechsten Taktstrich ein, und ein Takt gehoert immer genau dem
+       Teil, in dem er ANFAENGT.
+
+ [Fix] LOESCHEN hinterliess ein Loch in der Zeitleiste. Was danach im
+       Kaestchen stand, war Zufall — mal der Nachbar, mal "·". Jetzt
+       laeuft der Akkord DAVOR durch, und die Zeitleiste bleibt
+       geschlossen.
+
+ [Fix] VERSCHIEBEN sah aus, als taete es nichts. Drei Gruende, alle drei
+       behoben:
+         - Der Dialog klappte nach jedem Tipp zu.
+         - Verschoben wurde um 0,25 s. Ein Kaestchen zeigt den Akkord mit
+           dem groessten Anteil am Takt — bei knapp drei Sekunden Takt
+           aendert eine Viertelsekunde daran fast nie etwas. Jetzt geht es
+           um einen TAKT oder einen SCHLAG.
+         - Der ganze Akkord wanderte und ueberlappte den naechsten. Jetzt
+           wird die GRENZE verschoben: Der Akkord davor wird kuerzer oder
+           laenger, es entstehen keine Luecken.
+       Schritte, die nicht passen, sind grau statt abgelehnt — eine
+       Meldung haette man nicht gesehen, sie erscheint hinter dem Dialog.
+
+ [Fix] Der Bearbeiten-Dialog haengt jetzt an der Kennung des Akkords, nicht
+       an seiner Zeit. Nach einem Verschieben fand er sonst seinen eigenen
+       Akkord nicht mehr wieder.
+
+ SONG KREIEREN: ARPEGGIOS GEORDNET
+
+ [UX] Die sechsunddreissig Begleitmuster standen als eine einzige lange
+       Liste im Ausklappmenue. Jetzt eine Auswahl nach GRUPPEN — Gebrochene
+       Akkorde, Tanz und Takt, Ballade und Pop, Blues und Boogie, Latin,
+       Modern und Film, Neoklassik —, zugeklappt mit der Anzahl daneben.
+       Aufgeklappt ist die Gruppe, in der das gewaehlte Muster steckt.
+       Gruppen ohne Muster fuer den Takt fallen weg; im Dreivierteltakt
+       gibt es nur drei Muster ueberhaupt.
+       Der Knopf zeigt jetzt auch, aus welcher Gruppe das Muster stammt.
+
+ EINSINGEN: NACHGEMESSEN
+
+ [Fix] Ein gehaltener Ton wurde in Stuecke zerhackt. Beim Singen wandert
+       die Tonhoehe durch Vibrato und Ansatz staendig ueber die
+       Halbtongrenze, und jede Ueberquerung galt als neuer Ton. Kurze
+       Stuecke, die nur EINEN Halbton neben ihrem laengeren Nachbarn
+       liegen, gehoeren jetzt zu ihm.
+       An einer echten, freigestellten Gesangsspur gemessen: Median der
+       Tonlaengen 299 -> 402 ms, Tonzahl 51 -> 44.
+
+ [Build] Tobys Frage, ob eines der neuen Werkzeuge das Einsingen
+       verbessern kann — nachgemessen statt geraten, an derselben
+       Gesangsspur:
+         - hFT ist ein KLAVIERmodell. Auf Gesang meldet es bei Schwelle
+           0,5 rund 46 Anschlagsfelder je Sekunde, auf Klavier 8,6 — und
+           gesungen werden 1,7 Toene je Sekunde. Es verteilt eine Stimme
+           ueber die ganze Klaviatur. Unbrauchbar.
+         - Beat This! findet auf der blossen Stimme die Haelfte der
+           Schlaege (176 statt 358 im vollen Mix) und voellig
+           unregelmaessige Takte. Auch unbrauchbar.
+         - BTC schaetzt Akkorde aus einem vollen Klang; eine einstimmige
+           Stimme hat keine.
+         - Die Tonhoehenverfolgung selbst ist NICHT das Problem: Gegen
+           pYIN, den Massstab fuer einstimmigen Gesang, kommt sie auf
+           dieselbe Tonzahl, macht keinen einzigen Oktavfehler und stimmt
+           in 69 % aller Rahmen genau ueberein.
+       Die Antwort ist also dreimal nein — und die Verbesserung lag
+       woanders, siehe oben.
+
+ [Build] 108 Tests (vorher 97). Neu: die Griffrechnung des Editors samt
+       Rueckkopplungstest, und die Zusammenfassung beim Einsingen.
+       ⚠️ Beide muessen als Test geprueft werden, weil sie sich am Geraet
+       nicht pruefen lassen: fuer das eine braucht es zwei Finger, fuer
+       das andere eine Stimme.
+       Das Vergleichsskript liegt in der Werkstatt als
+       `skripte/einsingen_pruefen.py`.
 
 ------------------------------------------------------------------------
  v0.12.0  —  07.09.2026
