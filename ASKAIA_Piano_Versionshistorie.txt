@@ -6,13 +6,102 @@
  Zielgeraet: Samsung S24 (arm64), Android 16
  Referenzgeraet: Roland FP-90 (Bluetooth-MIDI)
 
- Aktueller Stand: v0.13.0  (versionCode 14)  —  08.09.2026
+ Aktueller Stand: v0.14.0  (versionCode 15)  —  09.09.2026
  Datenbank-Schema: Version 6
 
  Legende:  [Neu] Funktion   [UX] Bedienung/Design   [Fix] Fehlerbehebung
            [Build] Build/Technik   (Reihenfolge: neueste Version zuerst)
 ========================================================================
 
+
+------------------------------------------------------------------------
+ v0.14.0  —  09.09.2026
+------------------------------------------------------------------------
+
+ ZUERST: DIE ZWEI-FINGER-GESTE IST JETZT PRUEFBAR
+
+ [Build] Bis hierher galt: "Zwei-Finger-Gesten kann adb nicht ausloesen."
+       Das stimmt nur fuer `adb shell input`. Schreibt man die Ereignisse
+       direkt in das Eingabegeraet des Emulators (`sendevent`), gehen zwei
+       Finger sehr wohl. Zwei Dinge muessen stimmen:
+         - BEIDE Finger ueber DASSELBE Geraet, unterschieden durch den
+           Slot. Je Finger ein Geraet ergibt zwei getrennte Zeiger, und die
+           App sieht nie zwei Finger gleichzeitig.
+         - ABS_MT_PRESSURE mitsenden. Ohne Druck kommen die Ereignisse an,
+           es passiert aber nichts.
+       Damit ist alles Folgende GEMESSEN statt geschaetzt.
+
+ NOTEN-EDITOR
+
+ [Fix] Schwenken war vier- bis sechsmal zu schnell. Gemessen: 200
+       Bildpunkte Fingerweg verschoben den Inhalt um 935.
+       Ursache: `consume()` setzt eine Fingerbewegung auf "verbraucht", und
+       `positionChanged()` meldet danach FALSE. Die Merkposition wurde
+       deshalb nie fortgeschrieben, und jedes Ereignis schob die Ansicht
+       noch einmal um die ganze bisherige Strecke weiter.
+       Jetzt: 200 Punkte Finger -> 177 Punkte Inhalt. Die fehlenden 23 sind
+       die Anfahrschwelle, ab der aus einem Tipp ein Ziehen wird.
+
+ [Fix] Beim Zoomen rutschte die Ansicht zusaetzlich weg, sobald die Finger
+       wanderten. Der Ankerpunkt wurde in jedem Einzelbild neu aus der
+       AKTUELLEN Fingermitte gelesen — dieselbe Rueckkopplung wie in
+       v0.12.0 beim Verschieben eines Tons. Jetzt bleibt die Stelle vom
+       AUFSETZEN zwischen den Fingern.
+       Gemessen: zwei Finger nur schieben, 300 Punkte -> Inhalt 300,0
+       Punkte. Spreizen und wieder zusammen: der Ton landet 0,5 Punkte
+       neben seinem Ausgangsort.
+
+ [UX] Der Zoom ist gedaempft. Doppelter Fingerabstand ergibt nicht mehr
+       das Doppelte, sondern das Anderthalbfache (gemessen x1,517).
+       Gross zoomen geht weiterhin, es braucht nur zwei Zuege statt einem.
+       Hin und zurueck hebt sich exakt auf.
+
+ [Neu] Die TASTE LEUCHTET auf der Klaviatur, solange ein Ton gewaehlt ist —
+       mit einem Keil, der in die Notenflaeche zeigt. Der Finger deckt den
+       Ton zu, den man gerade zieht; die Taste am Rand bleibt sichtbar.
+
+ [UX] Toene sind leichter zu treffen: Gesucht wird in drei Zeilen — genau
+       unter dem Finger und eine darueber und darunter. Eine Tastenzeile
+       ist rund zwanzig Bildpunkte hoch, eine Fingerkuppe deckt das
+       Vierfache. Die Genauigkeit leidet nicht: Beim Ziehen zaehlt der
+       Griffpunkt, nicht die Zeile, in der man aufgesetzt hat.
+
+ AKKORDBLATT
+
+ [Fix] Der Akkordwechsel wurde nicht uebernommen — und zwar aus einem
+       Bedienungsgrund: Der Grundton-Chip leuchtet beim Antippen auf wie
+       eine getroffene Wahl, klappt darunter aber nur die Arten auf. Wer
+       dann "Fertig" drueckte, hatte nichts geaendert.
+       Jetzt zwei klare Schritte: "1. Grundton" — danach verschwindet die
+       Grundton-Reihe und es steht nur noch "2. Art antippen — damit ist
+       geaendert", mit einem Weg zurueck.
+
+ [Fix] Ein Akkord stand in einem Takt, in dem er kaum vorkam. Gemessen:
+       Ein Am von 14,907 bis 17,222 s ragte 113 ms in den Takt ab 12,060 s
+       hinein und gewann dort — weil sonst nur Pausen und zu kurze
+       Schnipsel darin lagen. Sein Name stand also auf dem falschen Takt.
+       Jetzt muss ein Akkord mindestens ein Drittel des Taktes fuellen,
+       sonst bleibt das Kaestchen leer. Ein "·" ist ehrlicher als ein
+       geratener Name.
+
+ [Neu] Klingt derselbe Akkord im naechsten Takt weiter, steht dort ein
+       STRICH statt noch einmal desselben Namens.
+       Tobys Meldung: "Teilweise scheinen 2 Akkordbloecke zusammen zu
+       gehoeren. Wenn ich einen davon auf Pause setze, wird der andere auch
+       zu einer Pause." Er hat recht — es ist EIN Akkord. Das Blatt zeigt
+       Takte, die Daten sind eine Zeitleiste, und ein Akkord von drei
+       Sekunden fuellt bei 81 Schlaegen zwei Kaestchen.
+
+ [Neu] AUFTRENNEN. Wer wirklich nur den zweiten Takt aendern will, trennt
+       den Akkord dort auf — der Knopf erscheint im Bearbeiten-Fenster,
+       sobald ein Akkord ueber den angetippten Takt hinausreicht.
+       Danach laesst sich jeder Takt einzeln aendern, loeschen oder auf
+       Pause setzen. Im Emulator durchgespielt: aufgetrennt, den dritten
+       Takt auf Pause gesetzt — der vierte blieb stehen —, und mit dem
+       Pfeil oben alles wieder zurueckgenommen.
+
+ [Build] 112 Tests (vorher 108). Neu: der Zoom mit wandernden Fingern und
+       die Daempfung.
 
 ------------------------------------------------------------------------
  v0.13.0  —  08.09.2026
