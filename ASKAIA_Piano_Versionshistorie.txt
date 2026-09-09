@@ -6,13 +6,100 @@
  Zielgeraet: Samsung S24 (arm64), Android 16
  Referenzgeraet: Roland FP-90 (Bluetooth-MIDI)
 
- Aktueller Stand: v0.14.0  (versionCode 15)  —  09.09.2026
+ Aktueller Stand: v0.15.0  (versionCode 16)  —  09.09.2026
  Datenbank-Schema: Version 6
 
  Legende:  [Neu] Funktion   [UX] Bedienung/Design   [Fix] Fehlerbehebung
            [Build] Build/Technik   (Reihenfolge: neueste Version zuerst)
 ========================================================================
 
+
+------------------------------------------------------------------------
+ v0.15.0  —  09.09.2026
+------------------------------------------------------------------------
+
+ NOTEN BEARBEITEN
+
+ [Neu] Beim Ziehen ERKLINGT der Ton, sobald die Tonhoehe wechselt — noch
+       bevor man den Finger hebt. Der Finger liegt genau auf dem Ton, den
+       man beurteilen will; das Ohr ist der einzige Sinn, der dabei frei
+       bleibt. Es klingt nur bei einem Wechsel, nicht bei jedem Ereignis,
+       sonst waere es ein Geknatter.
+
+ [Neu] RASTER SCHAETZEN fuer eigene Aufnahmen. Das FP-90 liefert keine
+       Tonspur, auf die sich die Schlagerkennung anwenden liesse — wohl
+       aber die Zeitpunkte der gespielten Toene. Wer im Takt spielt,
+       hinterlaesst darin ein Muster.
+       Der Knopf sitzt im Editor neben dem Papierkorb. Waehrend das Fenster
+       offen ist, zeigt der Editor DAHINTER schon die vorgeschlagenen
+       Striche: Man dreht am Tempo und sieht, ob sie auf den Toenen landen.
+       ⚠️ Der Schaetzer LEHNT AB, wenn kein durchgehender Takt zu erkennen
+       ist — bei freiem Spiel ist das der Normalfall. Dann geht dasselbe
+       Fenster trotzdem auf und man stellt Tempo, Taktart und den ersten
+       Taktstrich von Hand ein. Ein erfundenes Raster waere schlimmer als
+       keines: Es zieht beim Bearbeiten Toene an Stellen, an denen sie
+       nichts zu suchen haben.
+
+ ABSPIELEN
+
+ [Neu] NUR MELODIE / NUR BEGLEITUNG — in der Piano-Roll und in "Song
+       kreieren". Zum Ueben hoert man die Melodie erst allein, um sie zu
+       lernen, und dann die Begleitung ohne sie, um selbst darueber zu
+       spielen. Die Klaviatur leuchtet mit: Bei "Nur Begleitung" verraet
+       sie nicht die Melodie, die man gerade selber finden soll.
+
+ AKKORDBLATT
+
+ [Neu] TRANSPONIEREN, plus und minus bis zu sechs Halbtoene. Tonart,
+       Tonleiter, die haeufigsten Akkorde und das ganze Blatt wandern mit.
+       ⚠️ Nur die ANZEIGE — die Aufnahme klingt unveraendert, und die App
+       sagt das auch, solange etwas verschoben ist. Gedacht zum Spielen
+       oder Singen in einer bequemeren Lage.
+       Wer waehrend einer Verschiebung einen Akkord berichtigt, bekommt das
+       Blatt, das er sieht: Gespeichert wird zurueckgerechnet der Klang der
+       Aufnahme.
+
+ [Neu] ZAEHLZEITEN unter den Takten, ein- und ausschaltbar ("1 2 3 4").
+       Sie stehen unter der Reihe, nicht in den Kaestchen — dort waeren sie
+       entweder unlesbar klein oder wuerden den Akkordnamen verdraengen.
+
+ [Neu] TEIL IN SCHLEIFE UEBEN. Auf den Wiederholungspfeil neben einem Teil
+       tippen, und die Originalaufnahme laeuft genau ueber diesen Teil im
+       Kreis, waehrend das Blatt mitlaeuft. A und B von Hand zu setzen ist
+       genau der Umweg, der einen vom Ueben abhaelt.
+       ⚠️ Zwei Fehler dabei gefunden und behoben, beide im Emulator: Eine
+       laufende Schleife galt nach dem Verschieben eines Teils weiter,
+       obwohl es den Bereich so nicht mehr gab. Und reichte ein Teil bis ans
+       Ende der Aufnahme, hoerte die Schleife dort einfach auf, statt
+       zurueckzuspringen.
+
+ EINSINGEN
+
+ [Neu] EINZAEHLER UND KLICK. Vor der Aufnahme Tempo und Taktart einstellen,
+       dann wird ein Takt vorgezaehlt und der Klick laeuft weiter.
+       ⚠️ Er laeuft absichtlich DURCH: Nur so bleibt die Melodie ueber die
+       ganze Aufnahme im Takt und bekommt hinterher ein Raster, das auch am
+       Ende noch passt. Ueber Lautsprecher nimmt das Mikrofon ihn leise mit
+       auf — mit Kopfhoerern nicht.
+       Die gesungene Melodie bekommt damit ein Raster aus dem KLICK. Da ist
+       nichts zu schaetzen, das Tempo ist bekannt.
+
+ [Neu] TONART UND AKKORDE ZUR GESUNGENEN MELODIE. Nach der Aufnahme steht
+       da, in welcher Tonart die Melodie liegt und welche Akkorde darunter
+       passen wuerden.
+       ⚠️ Das sind Vorschlaege, keine Wahrheit — zu derselben Melodie passt
+       immer mehr als eine Begleitung. Ist die Tonart nicht eindeutig, sagt
+       die App auch das.
+       Gerechnet mit den Tonleiterprofilen von Krumhansl und Kessler, dem
+       Standardverfahren fuer Tonart aus blossen Toenen. ⚠️ Dazu kommt ein
+       Zuschlag fuer den SCHLUSSTON: Ohne ihn landete "Alle meine Entchen"
+       auf G-Dur statt C-Dur, weil in der Melodie mehr G als C vorkommt.
+       Ein Mensch hoert trotzdem C, weil das Stueck dort endet.
+
+ [Build] 139 Tests (vorher 112). Neu: Tempo-Schaetzer (mit dem wichtigsten
+       Test — er muss bei freiem Spiel ABLEHNEN), Transponieren (vor allem
+       lesbare Schreibweise ohne Doppelvorzeichen) und die Tonart- und
+       Akkordrechnung fuer gesungene Melodien.
 
 ------------------------------------------------------------------------
  v0.14.0  —  09.09.2026
