@@ -6,7 +6,7 @@
  Zielgeraet: Samsung S24 (arm64), Android 16
  Referenzgeraet: Roland FP-90 (Bluetooth-MIDI)
 
- Aktueller Stand: v0.15.0  (versionCode 16)  —  09.09.2026
+ Aktueller Stand: v0.16.0  (versionCode 17)  —  10.09.2026
  Datenbank-Schema: Version 6
 
  Legende:  [Neu] Funktion   [UX] Bedienung/Design   [Fix] Fehlerbehebung
@@ -15,305 +15,133 @@
 
 
 ------------------------------------------------------------------------
+ v0.16.0  —  10.09.2026
+------------------------------------------------------------------------
+
+ DIE ERKENNUNG HOERT JETZT GENAUER HIN
+
+ Anlass waren vier Testlieder: zwei Klavierstuecke (Duran Duran "Ordinary
+ World", Hans Zimmer "Time") und zwei Bandlieder (Sum 41 "Pieces", The
+ Glorious Sons "Sawed Off Shotgun"). Bei Sum 41 sah das Akkordblatt aus
+ wie gewuenscht — vier Kaestchen je Zeile. Bei The Glorious Sons stand
+ alles untereinander. Alles Folgende ist im Emulator nachgemessen.
+
+ [Fix] SCHLAGERKENNUNG: kein zweites Gleis mehr auf den Zwischenschlaegen.
+       Dieselbe Musik ergab 285 Schlaege aus der m4a, aber nur 247 aus
+       einer WAV desselben Tons. Ursache: Die Nachbearbeitung nahm JEDEN
+       Ausschlag ueber der Schwelle, und in duenn besetzten Stellen —
+       Intros, ruhige Strophen — liegt auch der Zwischenschlag darueber.
+       Die 38 Zusatzschlaege lagen alle in den ersten hundert Sekunden.
+       Jetzt wird weggeworfen, was nicht zum durchgehenden Puls passt:
+       241 statt 285. Der Schritt entfernt nur, er erfindet nichts, und
+       er laesst alles stehen, wenn er mehr als ein Drittel wegwerfen
+       muesste.
+
+ [Neu] AKKORDE LIEGEN AUF DEN ZAEHLZEITEN. Die Erkennung liefert alle 46
+       Millisekunden einen Wert; ungerundet stehen im Blatt Grenzen mitten
+       in der Zaehlzeit und halbsekundenlange Fetzen zwischen zwei
+       richtigen Akkorden. Musik ist nicht so gebaut — ein Akkord gilt
+       fuer eine Zaehlzeit. Jede Zaehlzeit bekommt jetzt genau einen
+       Akkord: den, der sie am laengsten fuellt.
+
+ [Fix] TAKTGITTER auch fuer schwierige Lieder. Der Puls wird vor der
+       Rechnung aufgeraeumt, und es werden zwei Tempi geprueft (das
+       gemessene und sein Doppeltes). The Glorious Sons bekommt damit
+       4/4 bei 73 Schlaegen und sein Kaestchen-Blatt; eine freie
+       Klavieraufnahme wird weiterhin abgelehnt, statt ein falsches
+       Raster zu behaupten.
+
+ [Neu] KNOPF "AKKORDE AUFRAEUMEN" im Akkordblatt. Rueckt Akkordgrenzen auf
+       die Zaehlzeiten (hoechstens ein Drittel Zaehlzeit weit) und laesst
+       einzelne tonartfremde Ausreisser vom Nachbarn schlucken. Bewusst
+       ein Knopf und kein stiller Schritt — der Pfeil oben nimmt ihn
+       zurueck.
+
+ [Fix] KEINE 0-PROZENT-AKKORDE mehr unter "Diese Akkorde kommen vor". Die
+       Liste nahm einfach die acht laengsten, auch wenn Platz sechs ein
+       halbsekuendiger Fehltreffer war. Jetzt muss ein Akkord zwei Prozent
+       der Akkordzeit fuellen; die ersten drei bleiben immer stehen.
+
+ [UX]  "AUFS TAKTRASTER EINRASTEN" IST JETZT AUS. An "Time" gemessen schob
+       es jeden Ton im Median um 48 Millisekunden, 46 Prozent um mehr als
+       50, den schlimmsten um eine halbe Sekunde. Bei einem frei
+       gespielten Stueck ist das genau der Vortrag. Wer ein Stueck sauber
+       aufschreiben will, schaltet es ein — der Hinweistext sagt jetzt,
+       was es tut.
+
+ [Neu] 13 NEUE ARPEGGIOS, alle aus Tobys Lieblingsgruppen: Neoklassik
+       (Triolen-Figur, Rollende Sechzehntel, Ruhige Flaeche, Kaskade
+       abwaerts, Zwei gegen drei, Herzschlag, Neoklassik-Walzer) und
+       Modern/Film (Pochende Achtel, Trailer-Stakkato, Offene Quinten,
+       Welle, Oktavpuls, Filmwalzer). Damit 49 Muster.
+
+ [Fix] Dreizehn sichtbare Texte hatten "ue/ae/oe" statt Umlauten.
+
+ [Build] 182 Tests (vorher 139). Neue Pruefmappe in der Werkstatt: sie
+       laesst die echte APK im Emulator alle Testlieder auswerten und
+       meldet jede Abweichung vom festgeschriebenen Stand.
+
+
+------------------------------------------------------------------------
  v0.15.0  —  09.09.2026
 ------------------------------------------------------------------------
 
- NOTEN BEARBEITEN
+ SIEBEN BESTELLTE FUNKTIONEN
 
- [Neu] Beim Ziehen ERKLINGT der Ton, sobald die Tonhoehe wechselt — noch
-       bevor man den Finger hebt. Der Finger liegt genau auf dem Ton, den
-       man beurteilen will; das Ohr ist der einzige Sinn, der dabei frei
-       bleibt. Es klingt nur bei einem Wechsel, nicht bei jedem Ereignis,
-       sonst waere es ein Geknatter.
+ [Neu] Klang beim Ziehen im Noten-Editor: Wechselt die Tonhoehe, erklingt
+       der Ton — noch bevor man den Finger hebt. Der Finger deckt den Ton
+       zu, den man beurteilen will; das Ohr bleibt frei.
+ [Neu] Tempo-Schaetzer fuer eigene Aufnahmen, damit auch FP-90-Mitschnitte
+       ein Raster im Editor bekommen. ⚠️ Er darf ablehnen; das Fenster geht
+       trotzdem auf, damit man von Hand einstellen kann.
+ [Neu] Nur Melodie / nur Begleitung hoeren — in Piano-Roll und "Song
+       kreieren", samt Klaviatur.
+ [Neu] Akkordblatt: Transponieren (nur die Anzeige), Zaehlzeiten unter den
+       Takten, einen Teil in Schleife ueben.
+ [Neu] Einsingen: Tempo und Taktart vorher, ein Takt Einzaehler, der Klick
+       laeuft durch. Danach Tonart- und Akkordvorschlaege zur gesungenen
+       Melodie.
+ [Build] 139 Tests (vorher 112).
 
- [Neu] RASTER SCHAETZEN fuer eigene Aufnahmen. Das FP-90 liefert keine
-       Tonspur, auf die sich die Schlagerkennung anwenden liesse — wohl
-       aber die Zeitpunkte der gespielten Toene. Wer im Takt spielt,
-       hinterlaesst darin ein Muster.
-       Der Knopf sitzt im Editor neben dem Papierkorb. Waehrend das Fenster
-       offen ist, zeigt der Editor DAHINTER schon die vorgeschlagenen
-       Striche: Man dreht am Tempo und sieht, ob sie auf den Toenen landen.
-       ⚠️ Der Schaetzer LEHNT AB, wenn kein durchgehender Takt zu erkennen
-       ist — bei freiem Spiel ist das der Normalfall. Dann geht dasselbe
-       Fenster trotzdem auf und man stellt Tempo, Taktart und den ersten
-       Taktstrich von Hand ein. Ein erfundenes Raster waere schlimmer als
-       keines: Es zieht beim Bearbeiten Toene an Stellen, an denen sie
-       nichts zu suchen haben.
-
- ABSPIELEN
-
- [Neu] NUR MELODIE / NUR BEGLEITUNG — in der Piano-Roll und in "Song
-       kreieren". Zum Ueben hoert man die Melodie erst allein, um sie zu
-       lernen, und dann die Begleitung ohne sie, um selbst darueber zu
-       spielen. Die Klaviatur leuchtet mit: Bei "Nur Begleitung" verraet
-       sie nicht die Melodie, die man gerade selber finden soll.
-
- AKKORDBLATT
-
- [Neu] TRANSPONIEREN, plus und minus bis zu sechs Halbtoene. Tonart,
-       Tonleiter, die haeufigsten Akkorde und das ganze Blatt wandern mit.
-       ⚠️ Nur die ANZEIGE — die Aufnahme klingt unveraendert, und die App
-       sagt das auch, solange etwas verschoben ist. Gedacht zum Spielen
-       oder Singen in einer bequemeren Lage.
-       Wer waehrend einer Verschiebung einen Akkord berichtigt, bekommt das
-       Blatt, das er sieht: Gespeichert wird zurueckgerechnet der Klang der
-       Aufnahme.
-
- [Neu] ZAEHLZEITEN unter den Takten, ein- und ausschaltbar ("1 2 3 4").
-       Sie stehen unter der Reihe, nicht in den Kaestchen — dort waeren sie
-       entweder unlesbar klein oder wuerden den Akkordnamen verdraengen.
-
- [Neu] TEIL IN SCHLEIFE UEBEN. Auf den Wiederholungspfeil neben einem Teil
-       tippen, und die Originalaufnahme laeuft genau ueber diesen Teil im
-       Kreis, waehrend das Blatt mitlaeuft. A und B von Hand zu setzen ist
-       genau der Umweg, der einen vom Ueben abhaelt.
-       ⚠️ Zwei Fehler dabei gefunden und behoben, beide im Emulator: Eine
-       laufende Schleife galt nach dem Verschieben eines Teils weiter,
-       obwohl es den Bereich so nicht mehr gab. Und reichte ein Teil bis ans
-       Ende der Aufnahme, hoerte die Schleife dort einfach auf, statt
-       zurueckzuspringen.
-
- EINSINGEN
-
- [Neu] EINZAEHLER UND KLICK. Vor der Aufnahme Tempo und Taktart einstellen,
-       dann wird ein Takt vorgezaehlt und der Klick laeuft weiter.
-       ⚠️ Er laeuft absichtlich DURCH: Nur so bleibt die Melodie ueber die
-       ganze Aufnahme im Takt und bekommt hinterher ein Raster, das auch am
-       Ende noch passt. Ueber Lautsprecher nimmt das Mikrofon ihn leise mit
-       auf — mit Kopfhoerern nicht.
-       Die gesungene Melodie bekommt damit ein Raster aus dem KLICK. Da ist
-       nichts zu schaetzen, das Tempo ist bekannt.
-
- [Neu] TONART UND AKKORDE ZUR GESUNGENEN MELODIE. Nach der Aufnahme steht
-       da, in welcher Tonart die Melodie liegt und welche Akkorde darunter
-       passen wuerden.
-       ⚠️ Das sind Vorschlaege, keine Wahrheit — zu derselben Melodie passt
-       immer mehr als eine Begleitung. Ist die Tonart nicht eindeutig, sagt
-       die App auch das.
-       Gerechnet mit den Tonleiterprofilen von Krumhansl und Kessler, dem
-       Standardverfahren fuer Tonart aus blossen Toenen. ⚠️ Dazu kommt ein
-       Zuschlag fuer den SCHLUSSTON: Ohne ihn landete "Alle meine Entchen"
-       auf G-Dur statt C-Dur, weil in der Melodie mehr G als C vorkommt.
-       Ein Mensch hoert trotzdem C, weil das Stueck dort endet.
-
- [Build] 139 Tests (vorher 112). Neu: Tempo-Schaetzer (mit dem wichtigsten
-       Test — er muss bei freiem Spiel ABLEHNEN), Transponieren (vor allem
-       lesbare Schreibweise ohne Doppelvorzeichen) und die Tonart- und
-       Akkordrechnung fuer gesungene Melodien.
 
 ------------------------------------------------------------------------
- v0.14.0  —  09.09.2026
+ v0.14.0  —  08.09.2026
 ------------------------------------------------------------------------
 
- ZUERST: DIE ZWEI-FINGER-GESTE IST JETZT PRUEFBAR
+ SCHWENKEN UND ZOOM RICHTIG, AKKORDBLATT EHRLICH
 
- [Build] Bis hierher galt: "Zwei-Finger-Gesten kann adb nicht ausloesen."
-       Das stimmt nur fuer `adb shell input`. Schreibt man die Ereignisse
-       direkt in das Eingabegeraet des Emulators (`sendevent`), gehen zwei
-       Finger sehr wohl. Zwei Dinge muessen stimmen:
-         - BEIDE Finger ueber DASSELBE Geraet, unterschieden durch den
-           Slot. Je Finger ein Geraet ergibt zwei getrennte Zeiger, und die
-           App sieht nie zwei Finger gleichzeitig.
-         - ABS_MT_PRESSURE mitsenden. Ohne Druck kommen die Ereignisse an,
-           es passiert aber nichts.
-       Damit ist alles Folgende GEMESSEN statt geschaetzt.
+ [Fix] Schwenken im Noten-Editor war vier- bis sechsmal zu schnell.
+       Gemessen: 200 Pixel Fingerweg schoben den Inhalt um 935 — jetzt um
+       177. Der Zoom-Anker wanderte ausserdem mit den Fingern mit; jetzt
+       bleibt die Stelle vom Aufsetzen zwischen ihnen stehen.
+ [UX]  Die gewaehlte Taste leuchtet auf der Klaviatur, und getroffen wird
+       in drei Zeilen statt einer.
+ [Fix] Akkordblatt: Der Grundton-Knopf sah aus wie eine getroffene Wahl,
+       war aber nur Schritt eins — daher "der Akkord wird nicht
+       uebernommen". Jetzt zwei benannte Schritte.
+ [Fix] Ein Akkord muss ein Drittel des Taktes fuellen, sonst bleibt das
+       Kaestchen leer (gemessen: 113 Millisekunden gewannen einen ganzen
+       Takt). Laeuft ein Akkord weiter, steht ein Strich statt des Namens.
+ [Build] 112 Tests (vorher 108).
 
- NOTEN-EDITOR
-
- [Fix] Schwenken war vier- bis sechsmal zu schnell. Gemessen: 200
-       Bildpunkte Fingerweg verschoben den Inhalt um 935.
-       Ursache: `consume()` setzt eine Fingerbewegung auf "verbraucht", und
-       `positionChanged()` meldet danach FALSE. Die Merkposition wurde
-       deshalb nie fortgeschrieben, und jedes Ereignis schob die Ansicht
-       noch einmal um die ganze bisherige Strecke weiter.
-       Jetzt: 200 Punkte Finger -> 177 Punkte Inhalt. Die fehlenden 23 sind
-       die Anfahrschwelle, ab der aus einem Tipp ein Ziehen wird.
-
- [Fix] Beim Zoomen rutschte die Ansicht zusaetzlich weg, sobald die Finger
-       wanderten. Der Ankerpunkt wurde in jedem Einzelbild neu aus der
-       AKTUELLEN Fingermitte gelesen — dieselbe Rueckkopplung wie in
-       v0.12.0 beim Verschieben eines Tons. Jetzt bleibt die Stelle vom
-       AUFSETZEN zwischen den Fingern.
-       Gemessen: zwei Finger nur schieben, 300 Punkte -> Inhalt 300,0
-       Punkte. Spreizen und wieder zusammen: der Ton landet 0,5 Punkte
-       neben seinem Ausgangsort.
-
- [UX] Der Zoom ist gedaempft. Doppelter Fingerabstand ergibt nicht mehr
-       das Doppelte, sondern das Anderthalbfache (gemessen x1,517).
-       Gross zoomen geht weiterhin, es braucht nur zwei Zuege statt einem.
-       Hin und zurueck hebt sich exakt auf.
-
- [Neu] Die TASTE LEUCHTET auf der Klaviatur, solange ein Ton gewaehlt ist —
-       mit einem Keil, der in die Notenflaeche zeigt. Der Finger deckt den
-       Ton zu, den man gerade zieht; die Taste am Rand bleibt sichtbar.
-
- [UX] Toene sind leichter zu treffen: Gesucht wird in drei Zeilen — genau
-       unter dem Finger und eine darueber und darunter. Eine Tastenzeile
-       ist rund zwanzig Bildpunkte hoch, eine Fingerkuppe deckt das
-       Vierfache. Die Genauigkeit leidet nicht: Beim Ziehen zaehlt der
-       Griffpunkt, nicht die Zeile, in der man aufgesetzt hat.
-
- AKKORDBLATT
-
- [Fix] Der Akkordwechsel wurde nicht uebernommen — und zwar aus einem
-       Bedienungsgrund: Der Grundton-Chip leuchtet beim Antippen auf wie
-       eine getroffene Wahl, klappt darunter aber nur die Arten auf. Wer
-       dann "Fertig" drueckte, hatte nichts geaendert.
-       Jetzt zwei klare Schritte: "1. Grundton" — danach verschwindet die
-       Grundton-Reihe und es steht nur noch "2. Art antippen — damit ist
-       geaendert", mit einem Weg zurueck.
-
- [Fix] Ein Akkord stand in einem Takt, in dem er kaum vorkam. Gemessen:
-       Ein Am von 14,907 bis 17,222 s ragte 113 ms in den Takt ab 12,060 s
-       hinein und gewann dort — weil sonst nur Pausen und zu kurze
-       Schnipsel darin lagen. Sein Name stand also auf dem falschen Takt.
-       Jetzt muss ein Akkord mindestens ein Drittel des Taktes fuellen,
-       sonst bleibt das Kaestchen leer. Ein "·" ist ehrlicher als ein
-       geratener Name.
-
- [Neu] Klingt derselbe Akkord im naechsten Takt weiter, steht dort ein
-       STRICH statt noch einmal desselben Namens.
-       Tobys Meldung: "Teilweise scheinen 2 Akkordbloecke zusammen zu
-       gehoeren. Wenn ich einen davon auf Pause setze, wird der andere auch
-       zu einer Pause." Er hat recht — es ist EIN Akkord. Das Blatt zeigt
-       Takte, die Daten sind eine Zeitleiste, und ein Akkord von drei
-       Sekunden fuellt bei 81 Schlaegen zwei Kaestchen.
-
- [Neu] AUFTRENNEN. Wer wirklich nur den zweiten Takt aendern will, trennt
-       den Akkord dort auf — der Knopf erscheint im Bearbeiten-Fenster,
-       sobald ein Akkord ueber den angetippten Takt hinausreicht.
-       Danach laesst sich jeder Takt einzeln aendern, loeschen oder auf
-       Pause setzen. Im Emulator durchgespielt: aufgetrennt, den dritten
-       Takt auf Pause gesetzt — der vierte blieb stehen —, und mit dem
-       Pfeil oben alles wieder zurueckgenommen.
-
- [Build] 112 Tests (vorher 108). Neu: der Zoom mit wandernden Fingern und
-       die Daempfung.
 
 ------------------------------------------------------------------------
  v0.13.0  —  08.09.2026
 ------------------------------------------------------------------------
 
- NOTEN BEARBEITEN: JETZT WIRKLICH BEDIENBAR
+ NOTEN-EDITOR PRAEZISE, AKKORDBLATT MIT RUECKGAENGIG
 
- [Fix] Ein Ton flog davon, sobald man ihn anfasste. Der Abstand zwischen
-       Finger und Tonanfang wurde bei JEDEM Fingerereignis neu aus der
-       schon verschobenen Position gerechnet — eine Rueckkopplung: Der Ton
-       rutschte unter den Finger, der Abstand schrumpfte, der Ton rutschte
-       weiter. Jetzt wird beim Aufsetzen einmal gemerkt, wo am Ton man ihn
-       gefasst hat, und danach nur noch angewendet.
-       Nachgemessen im Emulator: 400 Bildpunkte Fingerweg = 400 Bildpunkte
-       Ton, hin wie zurueck. Vorher lief er davon.
+ [Fix] Im Noten-Editor flog der Ton davon: Der Griffpunkt wurde bei jedem
+       Fingerereignis neu aus der schon verschobenen Position gerechnet.
+       Jetzt einmal beim Aufsetzen gemerkt — 400 Pixel Finger sind 400
+       Pixel Ton, hin wie zurueck.
+ [Neu] Rueckgaengig im Akkordblatt, 40 Schritte, Akkorde und Teile
+       zusammen.
+ [Fix] Doppelte Akkorde an Teilgrenzen: Ein Takt gehoert jetzt dem Teil,
+       in dem er ANFAENGT, und ein Teilanfang rastet auf den Taktstrich.
+ [UX]  Arpeggios nach Gruppen statt einer Liste von 36 Eintraegen.
+ [Build] 108 Tests (vorher 97).
 
- [Fix] Auch die ENDEN sprangen: Sie rasteten beim ersten Ziehen sofort
-       unter den Finger, statt dort weiterzumachen, wo man angefasst hat.
-
- [Fix] Die Trefferflaeche lag eine HALBE TASTE ueber dem gezeichneten Ton.
-       Man tippte mitten auf einen Balken und traf die Taste darueber.
-       Ursache: gerundet statt abgerundet — der Balken wird von seiner
-       Oberkante nach unten gezeichnet, die Treffersuche rechnete aber um
-       die Mitte herum.
-
- [UX] Aus einem Tipp wird erst ab 24 statt 12 Bildpunkten ein Ziehen. Mit
-       zwoelf reichte schon das Zittern beim Antippen, und ein Ton
-       verschob sich, den man nur ansehen wollte.
-
- [UX] Der Zwei-Finger-Zoom hat eine Totzone: Wer waagerecht zoomt, aendert
-       nicht mehr nebenbei die Tonhoehe. Zwei Finger liegen nie genau
-       waagerecht.
-
- [UX] Die Griffe an den Tonenden sind bei kurzen Toenen schmaler. Vorher
-       war bei einem kurzen Ton alles Rand, und man konnte ihn ueberhaupt
-       nicht mehr verschieben.
-
- AKKORDBLATT: TEILE UND BEARBEITEN
-
- [Fix] RUECKGAENGIG — der Pfeil oben rechts. Er nimmt jeden Handgriff
-       zurueck: Akkord aendern, loeschen, verschieben, Teil setzen oder
-       entfernen. Bis zu vierzig Schritte weit.
-       Ohne ihn war das Bearbeiten eine Falle: ein falscher Griff, und man
-       musste das Lied neu einlesen.
-
- [Fix] Der erste selbst gesetzte Teilanfang LOESCHTE alles davor aus dem
-       Blatt. Wer beim Abspielen bei 2:24 "Refrain" setzte, verlor die
-       ersten zweieinhalb Minuten. Jetzt steht das Stueck vor der ersten
-       Marke einfach ohne Ueberschrift da.
-
- [Fix] Die DOPPELTEN AKKORDE beim Setzen eines Teilanfangs. Ein Takt, der
-       ueber die Teilgrenze lief, gehoerte zu beiden Teilen und stand
-       zweimal im Blatt. Zwei Aenderungen: Ein Teilanfang rastet auf den
-       naechsten Taktstrich ein, und ein Takt gehoert immer genau dem
-       Teil, in dem er ANFAENGT.
-
- [Fix] LOESCHEN hinterliess ein Loch in der Zeitleiste. Was danach im
-       Kaestchen stand, war Zufall — mal der Nachbar, mal "·". Jetzt
-       laeuft der Akkord DAVOR durch, und die Zeitleiste bleibt
-       geschlossen.
-
- [Fix] VERSCHIEBEN sah aus, als taete es nichts. Drei Gruende, alle drei
-       behoben:
-         - Der Dialog klappte nach jedem Tipp zu.
-         - Verschoben wurde um 0,25 s. Ein Kaestchen zeigt den Akkord mit
-           dem groessten Anteil am Takt — bei knapp drei Sekunden Takt
-           aendert eine Viertelsekunde daran fast nie etwas. Jetzt geht es
-           um einen TAKT oder einen SCHLAG.
-         - Der ganze Akkord wanderte und ueberlappte den naechsten. Jetzt
-           wird die GRENZE verschoben: Der Akkord davor wird kuerzer oder
-           laenger, es entstehen keine Luecken.
-       Schritte, die nicht passen, sind grau statt abgelehnt — eine
-       Meldung haette man nicht gesehen, sie erscheint hinter dem Dialog.
-
- [Fix] Der Bearbeiten-Dialog haengt jetzt an der Kennung des Akkords, nicht
-       an seiner Zeit. Nach einem Verschieben fand er sonst seinen eigenen
-       Akkord nicht mehr wieder.
-
- SONG KREIEREN: ARPEGGIOS GEORDNET
-
- [UX] Die sechsunddreissig Begleitmuster standen als eine einzige lange
-       Liste im Ausklappmenue. Jetzt eine Auswahl nach GRUPPEN — Gebrochene
-       Akkorde, Tanz und Takt, Ballade und Pop, Blues und Boogie, Latin,
-       Modern und Film, Neoklassik —, zugeklappt mit der Anzahl daneben.
-       Aufgeklappt ist die Gruppe, in der das gewaehlte Muster steckt.
-       Gruppen ohne Muster fuer den Takt fallen weg; im Dreivierteltakt
-       gibt es nur drei Muster ueberhaupt.
-       Der Knopf zeigt jetzt auch, aus welcher Gruppe das Muster stammt.
-
- EINSINGEN: NACHGEMESSEN
-
- [Fix] Ein gehaltener Ton wurde in Stuecke zerhackt. Beim Singen wandert
-       die Tonhoehe durch Vibrato und Ansatz staendig ueber die
-       Halbtongrenze, und jede Ueberquerung galt als neuer Ton. Kurze
-       Stuecke, die nur EINEN Halbton neben ihrem laengeren Nachbarn
-       liegen, gehoeren jetzt zu ihm.
-       An einer echten, freigestellten Gesangsspur gemessen: Median der
-       Tonlaengen 299 -> 402 ms, Tonzahl 51 -> 44.
-
- [Build] Tobys Frage, ob eines der neuen Werkzeuge das Einsingen
-       verbessern kann — nachgemessen statt geraten, an derselben
-       Gesangsspur:
-         - hFT ist ein KLAVIERmodell. Auf Gesang meldet es bei Schwelle
-           0,5 rund 46 Anschlagsfelder je Sekunde, auf Klavier 8,6 — und
-           gesungen werden 1,7 Toene je Sekunde. Es verteilt eine Stimme
-           ueber die ganze Klaviatur. Unbrauchbar.
-         - Beat This! findet auf der blossen Stimme die Haelfte der
-           Schlaege (176 statt 358 im vollen Mix) und voellig
-           unregelmaessige Takte. Auch unbrauchbar.
-         - BTC schaetzt Akkorde aus einem vollen Klang; eine einstimmige
-           Stimme hat keine.
-         - Die Tonhoehenverfolgung selbst ist NICHT das Problem: Gegen
-           pYIN, den Massstab fuer einstimmigen Gesang, kommt sie auf
-           dieselbe Tonzahl, macht keinen einzigen Oktavfehler und stimmt
-           in 69 % aller Rahmen genau ueberein.
-       Die Antwort ist also dreimal nein — und die Verbesserung lag
-       woanders, siehe oben.
-
- [Build] 108 Tests (vorher 97). Neu: die Griffrechnung des Editors samt
-       Rueckkopplungstest, und die Zusammenfassung beim Einsingen.
-       ⚠️ Beide muessen als Test geprueft werden, weil sie sich am Geraet
-       nicht pruefen lassen: fuer das eine braucht es zwei Finger, fuer
-       das andere eine Stimme.
-       Das Vergleichsskript liegt in der Werkstatt als
-       `skripte/einsingen_pruefen.py`.
 
 ------------------------------------------------------------------------
  v0.12.0  —  07.09.2026
