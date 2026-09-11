@@ -6,12 +6,50 @@
  Zielgeraet: Samsung S24 (arm64), Android 16
  Referenzgeraet: Roland FP-90 (Bluetooth-MIDI)
 
- Aktueller Stand: v0.16.0  (versionCode 17)  —  10.09.2026
+ Aktueller Stand: v0.17.0  (versionCode 18)  —  11.09.2026
  Datenbank-Schema: Version 6
 
  Legende:  [Neu] Funktion   [UX] Bedienung/Design   [Fix] Fehlerbehebung
            [Build] Build/Technik   (Reihenfolge: neueste Version zuerst)
 ========================================================================
+
+
+------------------------------------------------------------------------
+ v0.17.0  —  11.09.2026
+------------------------------------------------------------------------
+
+ ZWEI AKKORDE IN EINEM TAKT, EINFACHE NAMEN, EHRLICHERE STANDARDS
+
+ Anlass: Bei Saybias "The Day After Tomorrow" wirkten die Akkorde beim
+ Abspielen verzoegert, und bei Wrests "Lost In Your Orbit" stellte sich
+ die Frage, ob man D# und D#sus4 nicht heraushoeren muesste. Alles
+ Folgende ist gemessen, nicht geraten.
+
+ [Fix] ZWEI AKKORDE IN EINEM TAKT. Die Erkennung war puenktlich - im
+       Median 41 ms nach dem Harmoniewechsel im Ton, nicht hoerbar. Aber
+       ein Kaestchen zeigte nur EINEN Akkord je Takt, und das Lied wechselt
+       alle zwei Schlaege: In 52 von 70 Takten beginnen zwei Akkorde, und
+       53 von 117 Wechseln standen in keinem Kaestchen. Waehrend bei 0:17
+       das A erklang, leuchtete "G". Jetzt stehen beide nebeneinander im
+       Kaestchen, und beim Abspielen leuchtet die Haelfte, die gerade
+       klingt. Unsichtbar bleibt noch 1 von 117 Wechseln.
+
+ [Neu] SCHALTER "AUSFUEHRLICH" im Akkordblatt. Standard sind einfache
+       Namen (Cm statt Cm7, D# statt D#sus4) - in den Kaestchen, in der
+       Zeitliste und bei "Diese Akkorde kommen vor". Eingeschaltet
+       erscheinen die Zusaetze. Gemessen: Wo das Modell "D#sus4" sagt,
+       klingt die Quarte nur 8 % staerker als an den "D#"-Stellen; Terz und
+       Quarte sind dort fast gleich laut. Auch laut Paper trifft das Modell
+       Zusaetze deutlich seltener (76 % gegen 82 % bei reinem Dur/Moll).
+
+ [UX]  TONARTFREMDE TOENE WERDEN JETZT STANDARDMAESSIG BEHALTEN. Der Filter
+       stuetzt sich auf die erkannte Tonart. Bei "Time" hielt die App das
+       Stueck fuer D-Dur und loeschte deshalb das C, einen Kernton des
+       Stuecks: 186 Toene fehlten, 102 davon C, und ein unabhaengiges
+       Klaviermodell bestaetigte gut die Haelfte der geloeschten als echt.
+       Wer den Filter will, schaltet ihn in den Einstellungen ein.
+
+ [Build] 198 Tests (vorher 182).
 
 
 ------------------------------------------------------------------------
